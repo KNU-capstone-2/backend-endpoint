@@ -1,17 +1,19 @@
 package com.knu.cloudapi.infrastructure.persistence.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="user")
+@Table(name="my_user")
+@NoArgsConstructor
 @Setter @Getter
 public class UserEntity {
-  @Id
+  @Id @GeneratedValue
   private Long id;
+
+  private String email;
 
   private String username;
 
