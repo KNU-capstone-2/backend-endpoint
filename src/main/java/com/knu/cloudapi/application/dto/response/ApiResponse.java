@@ -1,5 +1,6 @@
 package com.knu.cloudapi.application.dto.response;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
