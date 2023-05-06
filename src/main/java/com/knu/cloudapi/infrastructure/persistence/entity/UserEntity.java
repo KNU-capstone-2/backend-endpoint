@@ -6,11 +6,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="my_user")
 @NoArgsConstructor
-@Setter @Getter
+@Table(name="user_schema")
+@Getter @Setter
 public class UserEntity {
   @Id @GeneratedValue
+  @Column(name = "user_id")
   private Long id;
 
   private String email;
@@ -20,6 +21,4 @@ public class UserEntity {
   private String password;
 
   private String role;
-
-  private String userGroup;
 }

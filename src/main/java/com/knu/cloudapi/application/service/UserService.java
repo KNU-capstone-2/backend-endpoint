@@ -17,7 +17,7 @@ public class UserService implements UserUseCase {
 
     @Override
     public ApiResponse<Object> signUp(SignUpRequest request) {
-        userPersistencePort.save(new User(request.getEmail(), request.getUsername(), request.getPassword(), "USER", null ));
+        userPersistencePort.save(new User(request.getEmail(), request.getUsername(), request.getPassword(), "USER"));
         return new ApiResponse<>(ApiStatus.OK, "Success SignUp", null);
     }
 }

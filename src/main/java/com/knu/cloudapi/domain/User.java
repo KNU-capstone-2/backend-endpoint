@@ -1,39 +1,35 @@
 package com.knu.cloudapi.domain;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import lombok.*;
-
-@Setter @Getter
+@Getter @Setter
 @NoArgsConstructor
 public class User {
-  private Long id;
-  private String email;
+    private Long id;
+    private String username;
+    private String email;
+    private String password;
+    private String role;
 
-  private String username;
-
-  private String password;
-
-  private String role;
-
-  private String userGroup;
-
-  public User(String email, String username, String password, String role, String userGroup) {
-    this.email = email;
-    this.username = username;
-    this.password = password;
-    this.role = role;
-    this.userGroup = userGroup;
-  }
-
-  public List<String> roles() {
-    if(role.length() == 0) {
-      return new ArrayList<>();
+    public User(String username, String email, String password, String role) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.role = role;
     }
 
-    return Arrays.asList(role.split(","));
-  }
+    public List<String> roles() {
+        if (role.length() == 0) {
+            return new ArrayList<>();
+        }
+
+        return Arrays.asList(role.split(","));
+    }
 
 }

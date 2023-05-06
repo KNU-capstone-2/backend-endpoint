@@ -22,47 +22,48 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * @author ChangEn Yea
  */
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = true)
 @RequiredArgsConstructor
 public class SecurityConfiguration {
 
-  @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-    http
-        .csrf().disable()
-        .formLogin().disable()
-        .httpBasic().disable();
+        http
+                .csrf().disable()
+                .formLogin().disable()
+                .httpBasic().disable()
+                .headers().frameOptions().disable();
 
-    http.addFilterBefore(new CustomAuthenticationFilter(authenticationManager(http.getSharedObject(
-        AuthenticationConfiguration.class))), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new CustomAuthenticationFilter(authenticationManager(http.getSharedObject(
+                AuthenticationConfiguration.class))), UsernamePasswordAuthenticationFilter.class);
 
 //    세션 관리
-    http.sessionManagement()
-        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) // 세션 정책: 필요시 세션 생성
-        .maximumSessions(1) // 유저당 최대 세션 수
-        .maxSessionsPreventsLogin(false)
-        .expiredSessionStrategy(new CustomExpiredSessionStrategy()).and() // 동시 로그인 관련 기존 세션 만료
-        .invalidSessionStrategy(new CustomInvalidSessionStrategy()) // 세션 무효시 커스텀 필터
-        .sessionFixation().changeSessionId(); // 세션 고정 보호
+        http.sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) // 세션 정책: 필요시 세션 생성
+                .maximumSessions(1) // 유저당 최대 세션 수
+                .maxSessionsPreventsLogin(false)
+                .expiredSessionStrategy(new CustomExpiredSessionStrategy()).and() // 동시 로그인 관련 기존 세션 만료
+                .invalidSessionStrategy(new CustomInvalidSessionStrategy()) // 세션 무효시 커스텀 필터
+                .sessionFixation().changeSessionId(); // 세션 고정 보호
 
-    http
-        .authorizeHttpRequests()
-        .requestMatchers("/auth-test").hasRole("USER")
-        .anyRequest().permitAll();
+        http
+                .authorizeHttpRequests()
+                .requestMatchers("/auth-test").hasRole("USER")
+                .anyRequest().permitAll();
 
-    return http.build();
+        return http.build();
 
-  }
+    }
 
-  @Bean
-  public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-    return authenticationConfiguration.getAuthenticationManager();
-  }
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
 
-  @Bean
-  public BCryptPasswordEncoder encodePassword(){
-    return new BCryptPasswordEncoder();
-  }
+    @Bean
+    public BCryptPasswordEncoder encodePassword() {
+        return new BCryptPasswordEncoder();
+    }
 
 }
