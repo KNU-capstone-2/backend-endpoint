@@ -21,4 +21,12 @@ public class UserEntity {
   private String password;
 
   private String role;
+
+  @OneToOne
+  @JoinColumn(name = "user_usage_id")
+  private UserEntity userUsageEntity;
+
+  @OneToOne
+  @JoinColumn(name = "user_role_id")
+  private UserEntity userRoleEntity;
 }

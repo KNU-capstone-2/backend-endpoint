@@ -18,9 +18,14 @@ public class UserRoleEntity {
 
     @Column(name = "max_vcpu")
     private int maxVCpu;
+
     @Column(name = "max_ram")
     private int maxRam;
+
     @Column(name = "max_hdd")
     private int maxHdd;
+
+    @OneToOne(mappedBy = "userRoleEntity")
+    private UserEntity userEntity;
 
 }

@@ -13,8 +13,14 @@ public class UserUsageEntity {
     @Id @GeneratedValue
     @Column(name = "user_usage_id")
     private Long id;
+
     @Column(name = "vcpu")
     private int vCpu;
+
     private int ram;
+
     private int hdd;
+
+    @OneToOne(mappedBy = "userUsageEntity")
+    private UserEntity userEntity;
 }
