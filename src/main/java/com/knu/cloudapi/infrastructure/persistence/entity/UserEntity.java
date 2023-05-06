@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @NoArgsConstructor
 @Table(name="user_schema")
@@ -29,4 +32,7 @@ public class UserEntity {
   @OneToOne
   @JoinColumn(name = "user_role_id")
   private UserEntity userRoleEntity;
+
+  @OneToMany(mappedBy = "userEntity")
+  private List<InstanceEntity> instanceList = new ArrayList<InstanceEntity>();
 }

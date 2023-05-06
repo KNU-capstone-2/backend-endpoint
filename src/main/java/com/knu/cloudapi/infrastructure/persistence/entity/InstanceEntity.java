@@ -18,4 +18,8 @@ public class InstanceEntity {
     private String name;
     @Column(name = "access_role")
     private String accessRole;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity userEntity;
 }
