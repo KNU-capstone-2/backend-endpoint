@@ -1,4 +1,4 @@
-package com.knu.cloudapi.infrastructure.adapter.out;
+package com.knu.cloudapi.adapter.out;
 
 import com.knu.cloudapi.application.port.out.UserPersistencePort;
 import com.knu.cloudapi.domain.User;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 public class UserPersistenceAdapter implements UserPersistencePort {
 
   private final UserRepository userRepository;
-
   private final UserMapper userMapper;
 
   @Override

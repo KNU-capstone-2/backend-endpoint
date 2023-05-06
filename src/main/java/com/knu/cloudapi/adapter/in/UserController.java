@@ -1,4 +1,4 @@
-package com.knu.cloudapi.infrastructure.adapter.in;
+package com.knu.cloudapi.adapter.in;
 
 import com.knu.cloudapi.application.dto.request.SignUpRequest;
 import com.knu.cloudapi.application.dto.response.ApiResponse;
