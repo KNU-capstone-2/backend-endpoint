@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class SignUpRequest {
+public class JoinRequest {
     @NotBlank(message = "이메일은 필수 입력 값입니다")
     private String email;
 
