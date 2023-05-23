@@ -34,16 +34,18 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
   public CustomAuthenticationFilter(AuthenticationManager authenticationManager){
     setAuthenticationManager(authenticationManager);
-    setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/login", HttpMethod.POST.name()));
+    setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/auth/login", HttpMethod.POST.name()));
   }
 
   private User user;
+
 
   @Override
   public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
     if(!request.getMethod().equals(HttpMethod.POST.name())) {
       throw new AuthenticationServiceException("Authentication method not supported");
     }
+
 
     ObjectMapper mapper = new ObjectMapper();
     UsernamePasswordAuthenticationToken authRequest;
