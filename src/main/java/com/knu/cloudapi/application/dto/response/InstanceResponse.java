@@ -2,10 +2,12 @@ package com.knu.cloudapi.application.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 @AllArgsConstructor
-public class InstanceResponse {
+public class InstanceResponse{
     private String instanceId;
     private String instanceName;
     private String publicIPv4Address;

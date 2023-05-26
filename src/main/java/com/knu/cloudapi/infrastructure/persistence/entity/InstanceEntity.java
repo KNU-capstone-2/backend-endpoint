@@ -14,8 +14,10 @@ public class InstanceEntity {
     @Id @GeneratedValue
     @Column(name = "instance_id")
     private Long id;
-    @Column(name = "instance")
-    private String name;
+
+    @Column(name = "instance_name", unique = true)
+    private String instanceName;
+
     @Column(name = "access_role")
     private String accessRole;
 
