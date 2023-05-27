@@ -1,4 +1,4 @@
-package com.knu.cloudapi.infrastructure.configuration.auth;
+package com.knu.cloudapi.infrastructure.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.knu.cloudapi.application.dto.request.LoginRequest;

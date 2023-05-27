@@ -1,4 +1,4 @@
-package com.knu.cloudapi.adapter.out;
+package com.knu.cloudapi.adapter.out.persistence;
 
 import com.knu.cloudapi.application.port.out.UserPersistencePort;
 import com.knu.cloudapi.domain.User;

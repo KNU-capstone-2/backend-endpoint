@@ -1,13 +1,13 @@
-package com.knu.cloudapi.adapter.out;
+package com.knu.cloudapi.adapter.out.persistence;
 
 import com.knu.cloudapi.application.port.out.InstancePersistencePort;
 import com.knu.cloudapi.domain.Instance;
 import com.knu.cloudapi.infrastructure.persistence.mapper.InstanceMapper;
 import com.knu.cloudapi.infrastructure.persistence.repository.InstanceRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
-@Repository
+@Component
 @RequiredArgsConstructor
 public class InstancePersistenceAdapter implements InstancePersistencePort {
     private final InstanceRepository instanceRepository;

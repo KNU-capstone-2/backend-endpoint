@@ -1,4 +1,4 @@
-package com.knu.cloudapi.adapter.out;
+package com.knu.cloudapi.adapter.out.resttemplate;
 
 import com.knu.cloudapi.application.dto.response.InstanceResponse;
 import com.knu.cloudapi.application.port.out.InstanceRestTemplatePort;
@@ -23,13 +23,13 @@ public class InstanceRestTemplateAdapter implements InstanceRestTemplatePort {
 
     @Override
     public Instance getInstance(String name) {
-        return instanceMapper.fromResponseDto(restTemplate.getForObject("http://43.201.133.78:8000/servers/{name}", InstanceResponse.class, name));
+        return instanceMapper.fromResponseDto(restTemplate.getForObject("http://43.201.133.78:8000/instances/{name}", InstanceResponse.class, name));
     }
 
     @Override
     public ArrayList<Instance> getAllInstance() {
         ArrayList<InstanceResponse> instanceResponses = restTemplate.exchange(
-                "http://43.201.133.78:8000/servers",
+                "http://43.201.133.78:8000/instances",
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<ArrayList<InstanceResponse>>() {}

@@ -1,4 +1,4 @@
-package com.knu.cloudapi.infrastructure.configuration.auth;
+package com.knu.cloudapi.infrastructure.auth;
 
 import jakarta.servlet.ServletException;
 import java.io.IOException;

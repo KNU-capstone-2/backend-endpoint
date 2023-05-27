@@ -1,10 +1,11 @@
-package com.knu.cloudapi.adapter.in;
+package com.knu.cloudapi.adapter.in.web;
 
 import com.knu.cloudapi.application.dto.request.InstanceRequest;
 import com.knu.cloudapi.application.dto.response.ApiResponse;
 import com.knu.cloudapi.application.dto.response.ApiStatus;
 import com.knu.cloudapi.application.dto.response.InstanceResponse;
 import com.knu.cloudapi.application.port.in.InstanceUseCase;
+import com.knu.cloudapi.application.port.in.UserUseCase;
 import com.knu.cloudapi.domain.Instance;
 import com.knu.cloudapi.infrastructure.persistence.mapper.InstanceMapper;
 import lombok.RequiredArgsConstructor;
@@ -18,10 +19,11 @@ import java.util.ArrayList;
 @RequiredArgsConstructor
 @RequestMapping("/instances")
 public class InstanceController {
-    private final RestTemplate restTemplate;
     private final InstanceUseCase instanceUseCase;
-    private final InstanceMapper instanceMapper;
 
+    private final UserUseCase userUseCase;
+    private final InstanceMapper instanceMapper;
+    private final RestTemplate restTemplate;
     @GetMapping(path = "/{id}")
     public ResponseEntity<ApiResponse<InstanceResponse>> getInstance(@PathVariable("id") Long id) {
         Instance instance = instanceUseCase.getInstance(id);

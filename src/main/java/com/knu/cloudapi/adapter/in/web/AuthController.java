@@ -1,4 +1,4 @@
-package com.knu.cloudapi.adapter.in;
+package com.knu.cloudapi.adapter.in.web;
 
 import com.knu.cloudapi.application.dto.request.JoinRequest;
 import com.knu.cloudapi.application.dto.response.ApiResponse;

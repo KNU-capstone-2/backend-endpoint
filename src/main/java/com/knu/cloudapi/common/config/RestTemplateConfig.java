@@ -1,4 +1,4 @@
-package com.knu.cloudapi.infrastructure.configuration;
+package com.knu.cloudapi.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

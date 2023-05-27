@@ -1,8 +1,8 @@
-package com.knu.cloudapi.infrastructure.configuration;
+package com.knu.cloudapi.common.config;
 
-import com.knu.cloudapi.infrastructure.configuration.auth.CustomAuthenticationFilter;
-import com.knu.cloudapi.infrastructure.configuration.auth.CustomExpiredSessionStrategy;
-import com.knu.cloudapi.infrastructure.configuration.auth.CustomInvalidSessionStrategy;
+import com.knu.cloudapi.infrastructure.auth.CustomAuthenticationFilter;
+import com.knu.cloudapi.infrastructure.auth.CustomExpiredSessionStrategy;
+import com.knu.cloudapi.infrastructure.auth.CustomInvalidSessionStrategy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
