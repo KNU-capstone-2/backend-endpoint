@@ -14,12 +14,17 @@ public class InstanceEntity {
     @Id @GeneratedValue
     @Column(name = "instance_id")
     private Long id;
-    @Column(name = "instance")
-    private String name;
-    @Column(name = "access_role")
-    private String accessRole;
 
-    @ManyToOne
+    @Column(name = "instance_name", unique = true)
+    private String instanceName;
+
+    @Column(name = "image_name")
+    private String imageName;
+
+    @Column(name = "flavor_name")
+    private String flavorName;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
 }

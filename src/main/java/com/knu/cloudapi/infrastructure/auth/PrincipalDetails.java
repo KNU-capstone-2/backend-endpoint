@@ -1,4 +1,4 @@
-package com.knu.cloudapi.infrastructure.configuration.auth;
+package com.knu.cloudapi.infrastructure.auth;
 
 import com.knu.cloudapi.domain.User;
 import java.util.ArrayList;

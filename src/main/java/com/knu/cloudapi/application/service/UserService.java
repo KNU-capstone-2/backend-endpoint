@@ -5,6 +5,7 @@ import com.knu.cloudapi.application.dto.response.ApiResponse;
 import com.knu.cloudapi.application.dto.response.ApiStatus;
 import com.knu.cloudapi.application.port.in.UserUseCase;
 import com.knu.cloudapi.application.port.out.UserPersistencePort;
+import com.knu.cloudapi.common.Role;
 import com.knu.cloudapi.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,7 +20,7 @@ public class UserService implements UserUseCase {
 
     @Override
     public ApiResponse<Object> join(JoinRequest request) {
-        userPersistencePort.save(new User(request.getUsername(), request.getEmail(), bCryptPasswordEncoder.encode(request.getPassword()), "ROLE_USER"));
+        userPersistencePort.save(new User(request.getUsername(), request.getEmail(), bCryptPasswordEncoder.encode(request.getPassword()), Role.USER));
         return new ApiResponse<>(ApiStatus.OK, "Success SignUp", null);
     }
 }

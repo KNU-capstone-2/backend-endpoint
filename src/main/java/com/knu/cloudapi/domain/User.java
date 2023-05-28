@@ -1,5 +1,6 @@
 package com.knu.cloudapi.domain;
 
+import com.knu.cloudapi.common.Role;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,9 +16,9 @@ public class User {
     private String username;
     private String email;
     private String password;
-    private String role;
+    private Role role;
 
-    public User(String username, String email, String password, String role) {
+    public User(String username, String email, String password, Role role) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -25,11 +26,11 @@ public class User {
     }
 
     public List<String> roles() {
-        if (role.length() == 0) {
+        if (role.getKey().length() == 0) {
             return new ArrayList<>();
         }
 
-        return Arrays.asList(role.split(","));
+        return Arrays.asList(role.getKey().split(","));
     }
 
 }

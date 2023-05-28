@@ -1,15 +1,14 @@
-package com.knu.cloudapi.domain;
+package com.knu.cloudapi.application.dto.response;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter @Setter
 @NoArgsConstructor
-public class Instance {
-    private Long id;
-
-    //==instanceRestTemplate Data==//
+@AllArgsConstructor
+public class InstanceResponse{
     private String instanceId;
 
     private String instanceName;
@@ -34,8 +33,5 @@ public class Instance {
 
     private String taskState;
 
-    //==instanceRequest Data==//
     private String imageName;
-
-    private String flavorName;
 }
