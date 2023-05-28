@@ -3,19 +3,35 @@ package com.knu.cloudapi.application.dto.response;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Getter
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class InstanceResponse{
     private String instanceId;
+
     private String instanceName;
-    private String publicIPv4Address;
-    private String privateIPv4Address;
-    private String instanceState;
-    private String publicIPv4DNS;
+
+    private String instanceStatus;
+
     private String hostNameType;
-    private String privateIpDnsName;
+
+    private String securityGroups;
+
     private String instanceType;
-    private String statusCheck;
+
+    private String createdDate;
+
+    private String networkName;
+
+    private String networkAddresses;
+
+    private String keypairName;
+
+    private String powerState;
+
+    private String taskState;
+
+    private String imageName;
 }

@@ -7,8 +7,6 @@ import com.knu.cloudapi.domain.User;
 import com.knu.cloudapi.infrastructure.persistence.entity.UserEntity;
 import com.knu.cloudapi.infrastructure.persistence.entity.UserUsageEntity;
 import com.knu.cloudapi.infrastructure.persistence.mapper.UserMapper;
-import com.knu.cloudapi.infrastructure.persistence.mapper.UserRoleMapper;
-import com.knu.cloudapi.infrastructure.persistence.mapper.UserUsageMapper;
 import com.knu.cloudapi.infrastructure.persistence.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -33,7 +31,17 @@ public class UserPersistenceAdapter implements UserPersistencePort {
   public void save(User user) {
     UserEntity userEntity = userMapper.toEntity(user);
     userEntity.setUserRoleEntity(userRolePersistencePort.getUserRoleByRole(user.getRole()));
-    userEntity.setUserUsageEntity(userUsagePersistencePort.save(new UserUsageEntity(0, 0, 0)));
+    userEntity.setUserUsageEntity(userUsagePersistencePort.save(new UserUsageEntity(0, 0, 0, 0)));
     userRepository.save(userEntity);
+  }
+
+  @Override
+  public void save(UserEntity userEntity) {
+    userRepository.save(userEntity);
+  }
+
+  @Override
+  public UserEntity findById(Long id) {
+    return userRepository.findById(id).orElseThrow(NullPointerException::new);
   }
 }

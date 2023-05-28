@@ -15,4 +15,9 @@ public class UserUsagePersistenceAdapter implements UserUsagePersistencePort {
     public UserUsageEntity save(UserUsageEntity userUsageEntity) {
         return userUsageRepository.save(userUsageEntity);
     }
+
+    @Override
+    public UserUsageEntity getUserUsageById(Long id) {
+        return userUsageRepository.findById(id).orElse(null);
+    }
 }

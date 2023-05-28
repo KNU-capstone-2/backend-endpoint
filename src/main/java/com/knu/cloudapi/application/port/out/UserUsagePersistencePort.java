@@ -6,4 +6,5 @@ import com.knu.cloudapi.infrastructure.persistence.entity.UserUsageEntity;
 
 public interface UserUsagePersistencePort {
     UserUsageEntity save(UserUsageEntity UserUsageEntity);
+    UserUsageEntity getUserUsageById(Long id);
 }

@@ -9,25 +9,33 @@ import lombok.Setter;
 public class Instance {
     private Long id;
 
-    private String accessRole;
+    //==instanceRestTemplate Data==//
+    private String instanceId;
 
     private String instanceName;
 
-    private String instanceId;
-
-    private String publicIPv4Address;
-
-    private String privateIPv4Address;
-
-    private String instanceState;
-
-    private String publicIPv4DNS;
+    private String instanceStatus;
 
     private String hostNameType;
 
-    private String privateIpDnsName;
+    private String securityGroups;
 
     private String instanceType;
 
-    private String statusCheck;
+    private String createdDate;
+
+    private String networkName;
+
+    private String networkAddresses;
+
+    private String keypairName;
+
+    private String powerState;
+
+    private String taskState;
+
+    //==instanceRequest Data==//
+    private String imageName;
+
+    private String flavorName;
 }

@@ -18,10 +18,13 @@ public class InstanceEntity {
     @Column(name = "instance_name", unique = true)
     private String instanceName;
 
-    @Column(name = "access_role")
-    private String accessRole;
+    @Column(name = "image_name")
+    private String imageName;
 
-    @ManyToOne
+    @Column(name = "flavor_name")
+    private String flavorName;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
 }
