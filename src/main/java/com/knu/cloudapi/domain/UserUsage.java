@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 @Getter @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserUsage {
     private Long id;
     private int vCpu;

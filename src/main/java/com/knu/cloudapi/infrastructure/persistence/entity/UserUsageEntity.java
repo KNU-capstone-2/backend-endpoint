@@ -21,6 +21,13 @@ public class UserUsageEntity {
 
     private int hdd;
 
-    @OneToOne(mappedBy = "userUsageEntity")
+    @OneToOne(mappedBy = "userUsageEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private UserEntity userEntity;
+
+
+    public UserUsageEntity(int vCpu, int ram, int hdd) {
+        this.vCpu = 0;
+        this.ram = 0;
+        this.hdd = 0;
+    }
 }

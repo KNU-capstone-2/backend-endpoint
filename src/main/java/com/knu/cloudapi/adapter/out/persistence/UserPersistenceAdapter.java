@@ -1,9 +1,14 @@
 package com.knu.cloudapi.adapter.out.persistence;
 
 import com.knu.cloudapi.application.port.out.UserPersistencePort;
+import com.knu.cloudapi.application.port.out.UserRolePersistencePort;
+import com.knu.cloudapi.application.port.out.UserUsagePersistencePort;
 import com.knu.cloudapi.domain.User;
 import com.knu.cloudapi.infrastructure.persistence.entity.UserEntity;
+import com.knu.cloudapi.infrastructure.persistence.entity.UserUsageEntity;
 import com.knu.cloudapi.infrastructure.persistence.mapper.UserMapper;
+import com.knu.cloudapi.infrastructure.persistence.mapper.UserRoleMapper;
+import com.knu.cloudapi.infrastructure.persistence.mapper.UserUsageMapper;
 import com.knu.cloudapi.infrastructure.persistence.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,6 +19,9 @@ public class UserPersistenceAdapter implements UserPersistencePort {
 
   private final UserRepository userRepository;
   private final UserMapper userMapper;
+  private final UserRolePersistencePort userRolePersistencePort;
+  private final UserUsagePersistencePort userUsagePersistencePort;
+
 
   @Override
   public User findByUsername(String username) {
@@ -23,6 +31,9 @@ public class UserPersistenceAdapter implements UserPersistencePort {
 
   @Override
   public void save(User user) {
-    userRepository.save(userMapper.toEntity(user));
+    UserEntity userEntity = userMapper.toEntity(user);
+    userEntity.setUserRoleEntity(userRolePersistencePort.getUserRoleByRole(user.getRole()));
+    userEntity.setUserUsageEntity(userUsagePersistencePort.save(new UserUsageEntity(0, 0, 0)));
+    userRepository.save(userEntity);
   }
 }
