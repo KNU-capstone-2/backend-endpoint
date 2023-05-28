@@ -18,7 +18,7 @@ public class UserPersistenceAdapter implements UserPersistencePort {
   @Override
   public User findByUsername(String username) {
     return userMapper.fromEntity(userRepository.findByUsername(username)
-        .orElseThrow(NullPointerException::new));
+      .orElseThrow(NullPointerException::new));
   }
 
   @Override
