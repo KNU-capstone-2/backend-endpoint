@@ -1,23 +1,54 @@
 package com.knu.cloudapi.infrastructure.persistence.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.knu.cloudapi.common.Role;
+import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
-@Table(name="user")
-@Setter @Getter
+@NoArgsConstructor
+@Table(name="user_schema")
+@Getter @Setter
 public class UserEntity {
-  @Id
+  @Id @GeneratedValue
+  @Column(name = "user_id")
   private Long id;
 
+  @Column(unique = true, nullable = false)
+  private String email;
+
+  @Column(unique = true, nullable = false)
   private String username;
 
+  @Column(nullable = false)
   private String password;
 
-  private String role;
+  @Column(nullable = false)
+  @Enumerated(EnumType.STRING)
+  private Role role;
 
-  private String userGroup;
+  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinColumn(name = "user_usage_id")
+  private UserUsageEntity userUsageEntity;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_role_id")
+  private UserRoleEntity userRoleEntity;
+
+  @OneToMany(mappedBy = "userEntity")
+  private List<InstanceEntity> instanceList = new ArrayList<InstanceEntity>();
+
+  public void setUserUsageEntity(UserUsageEntity userUsageEntity) {
+    this.userUsageEntity = userUsageEntity;
+    userUsageEntity.setUserEntity(this);
+  }
+
+  public void addInstanceEntity(InstanceEntity instanceEntity) {
+    instanceList.add(instanceEntity);
+    instanceEntity.setUserEntity(this);
+  }
 }
