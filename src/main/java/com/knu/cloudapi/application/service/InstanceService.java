@@ -1,7 +1,9 @@
 package com.knu.cloudapi.application.service;
 
+import com.knu.cloudapi.application.dto.EndPointOpenStackMapper;
 import com.knu.cloudapi.application.dto.Flavor;
 import com.knu.cloudapi.application.dto.request.InstanceRequest;
+import com.knu.cloudapi.application.dto.response.InstanceControlResponse;
 import com.knu.cloudapi.application.port.in.InstanceUseCase;
 import com.knu.cloudapi.application.port.out.*;
 import com.knu.cloudapi.domain.*;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +32,10 @@ public class InstanceService implements InstanceUseCase {
     private final UserUsageMapper  userUsageMapper;
     private final UserRoleMapper userRoleMapper;
     private final InstanceMapper instanceMapper;
+
+    private final EndPointOpenStackMapper endPointOpenStackMapper;
+
+    private final OpenStackPort openStackPort;
 
     @Override
     public Instance getInstance(Long id) {
@@ -116,6 +123,21 @@ public class InstanceService implements InstanceUseCase {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public InstanceControlResponse startInstance(String id) {
+        return endPointOpenStackMapper.transInstanceControlRes(openStackPort.startInstance(id));
+    }
+
+    @Override
+    public InstanceControlResponse rebootInstance(String id) {
+        return endPointOpenStackMapper.transInstanceControlRes(openStackPort.rebootInstance(id));
+    }
+
+    @Override
+    public InstanceControlResponse stopInstance(String id) {
+        return endPointOpenStackMapper.transInstanceControlRes(openStackPort.stopInstance(id));
     }
 
 

@@ -22,4 +22,6 @@ public interface EndPointOpenStackMapper {
     PostKeypairRequest transPostKeypairReq(PostKeypairRequest request);
 
     GetProjectResponse transGetProjectRes(GetOpenStackProjectResponse response);
+
+    InstanceControlResponse transInstanceControlRes(OpenStackInstanceControlResponse response);
 }
