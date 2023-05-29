@@ -25,5 +25,5 @@ public class GetOpenStackFlavorResponse {
 
     private String ephemeral;
 
-    private String visibale;
+    private String visible;
 }

@@ -15,13 +15,11 @@ public class GetOpenStackImageResponse {
 
     private String name;
 
-    private String shared;
+    private String createdDate;
 
-    private String external;
+    private String updateDate;
 
-    private String adminState;
+    private String size;
 
-    private String availabilityZone;
-
-    private String subnets;
+    private String status;
 }
