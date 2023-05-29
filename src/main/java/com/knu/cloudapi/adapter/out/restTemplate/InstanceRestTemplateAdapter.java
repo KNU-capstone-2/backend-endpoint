@@ -1,4 +1,4 @@
-package com.knu.cloudapi.adapter.out.resttemplate;
+package com.knu.cloudapi.adapter.out.restTemplate;
 
 import com.knu.cloudapi.application.dto.request.InstanceRequest;
 import com.knu.cloudapi.application.dto.response.InstanceResponse;
