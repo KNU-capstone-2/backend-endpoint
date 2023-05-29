@@ -5,6 +5,12 @@ import com.knu.cloudapi.application.dto.response.*;
 import com.knu.cloudapi.application.port.in.InstanceOptionsUsecase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -55,13 +61,21 @@ public class InstanceOptionsController {
         return ResponseEntity.ok().body(instanceOptionsUsecase.getImageById(id));
     }
 
+
     @PostMapping("keypair")
     public ResponseEntity<PostKeypairResponse> postKeypair(@RequestBody PostKeypairRequest request) {
         return ResponseEntity.ok().body(instanceOptionsUsecase.postKeypair(request));
     }
 
+
     @GetMapping( "project")
     public ResponseEntity<GetProjectResponse> getOpenStackProject() {
         return ResponseEntity.ok().body(instanceOptionsUsecase.getOpenStackProject());
     }
+
+    @DeleteMapping("keypair/{id}")
+    public ResponseEntity<String> deleteKeypairById(@PathVariable("id") String id) {
+        return ResponseEntity.ok().body(instanceOptionsUsecase.deleteKeypair(id));
+    }
+
 }

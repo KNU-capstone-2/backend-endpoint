@@ -97,4 +97,9 @@ public class InstanceOptionsService implements InstanceOptionsUsecase {
     public GetProjectResponse getOpenStackProject() {
         return mapper.transGetProjectRes(openStackPort.getProject());
     }
+
+    @Override
+    public String deleteKeypair(String id) {
+        return openStackPort.deleteKeypair(id);
+    }
 }

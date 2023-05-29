@@ -26,4 +26,6 @@ public interface InstanceOptionsUsecase {
     PostKeypairResponse postKeypair(PostKeypairRequest request);
 
     GetProjectResponse getOpenStackProject();
+
+    String deleteKeypair(String id);
 }
