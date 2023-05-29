@@ -35,7 +35,7 @@ public class UserEntity {
   @JoinColumn(name = "user_usage_id")
   private UserUsageEntity userUsageEntity;
 
-  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_role_id")
   private UserRoleEntity userRoleEntity;
 
@@ -45,11 +45,6 @@ public class UserEntity {
   public void setUserUsageEntity(UserUsageEntity userUsageEntity) {
     this.userUsageEntity = userUsageEntity;
     userUsageEntity.setUserEntity(this);
-  }
-
-  public void setUserRoleEntity(UserRoleEntity userRoleEntity) {
-    this.userRoleEntity = userRoleEntity;
-    userRoleEntity.setUserEntity(this);
   }
 
   public void addInstanceEntity(InstanceEntity instanceEntity) {
