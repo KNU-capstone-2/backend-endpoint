@@ -12,7 +12,7 @@ import com.knu.cloudapi.infrastructure.persistence.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -26,8 +26,8 @@ public class UserPersistenceAdapter implements UserPersistencePort {
 
   @Override
   public User findByUsername(String username) {
-    return userMapper.fromEntity(userRepository.findByUsername(username)
-        .orElseThrow(NullPointerException::new));
+    Optional<UserEntity> optionalUserEntity = userRepository.findByUsername(username);
+    return optionalUserEntity.map(userMapper::fromEntity).orElse(null);
   }
 
   @Override
@@ -45,7 +45,11 @@ public class UserPersistenceAdapter implements UserPersistencePort {
   }
 
   @Override
-  public UserEntity findById(Long id) {
-    return userRepository.findById(id).orElseThrow(NullPointerException::new);
+  public Optional<UserEntity> findById(Long id) {
+    try {
+      return userRepository.findById(id);
+    } catch (Exception e) {
+      return Optional.empty();
+    }
   }
 }

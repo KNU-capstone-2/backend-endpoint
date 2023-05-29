@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -32,9 +33,8 @@ public class InstanceService implements InstanceUseCase {
     public Instance getInstance(Long id) {
         InstanceEntity instanceEntity = instancePersistencePort.getInstanceEntityById(id);
         Instance instance = instanceRestTemplatePort.getInstance(instanceMapper.fromEntity(instanceEntity).getInstanceName());
-        if(instance != null){
-            instance.setImageName(instanceEntity.getImageName());
-        }
+        instance.setId(instanceEntity.getId());
+        instance.setCreatorName(userPersistencePort.findById(instanceEntity.getId()).map(UserEntity::getUsername).orElse(null));
         return instance;
     }
 
@@ -43,26 +43,27 @@ public class InstanceService implements InstanceUseCase {
         ArrayList<Instance> instances = instanceRestTemplatePort.getAllInstance();
         for (Instance instance : instances) {
             try{
-                instance.setImageName(instancePersistencePort.getInstanceEntityByName(instance.getInstanceName()).getImageName());
+                instance.setId(instancePersistencePort.getInstanceEntityByName(instance.getInstanceName()).getId());
+                instance.setCreatorName(userPersistencePort.findById(instance.getId()).map(UserEntity::getUsername).orElse(null));
             }catch(NullPointerException e) {
                 System.out.println(e.getMessage());
             }
-
         }
         return instances;
     }
 
     @Override
     public Instance createInstance(InstanceRequest instanceRequest, User user) {
-        UserEntity userEntity = userPersistencePort.findById(user.getId());
-        UserUsage userUsage = userUsageMapper.fromEntity(userEntity.getUserUsageEntity());
-        UserRole userRole = userRoleMapper.fromEntity(userEntity.getUserRoleEntity());
+        UserEntity userEntity = userPersistencePort.findById(user.getId()).orElse(null);
+        UserUsage userUsage = userUsageMapper.fromEntity(Objects.requireNonNull(userEntity).getUserUsageEntity());
+        UserRole userRole = userRoleMapper.fromEntity(Objects.requireNonNull(userEntity).getUserRoleEntity());
+
         Flavor flavor = flavorRestTemplatePort.getFlavor(instanceRequest.getFlavorName());
         ProjectUsage projectUsage = projectUsageRestTemplatePort.getProjectUsage();
 
         /**
          * Project: 인스턴스 개수 10, VCPU 개수 20, RAM 양 51200GB, HDD 용량 1000GB
-         * User 제한: VCPU 개수 10, RAM 양 26000GB, HDD 용량 500GB
+         * User 제한: VCPU 개수 10, RAM 양 25600GB, HDD 용량 500GB
          */
 
 
@@ -70,19 +71,19 @@ public class InstanceService implements InstanceUseCase {
                 && userUsage.cmpUsage(userRole.getMaxVCpu(), userRole.getMaxRam(), userRole.getMaxHdd(), flavor)
                 && projectUsage.cmpProjectUsage(10, 20, 51200, 1000, flavor)) {
 
-            //인스턴스 생성 by restTemplate
             Instance instance = instanceRestTemplatePort.createInstance(instanceRequest);
             instance.setFlavorName(instanceRequest.getFlavorName());
             instance.setImageName(instanceRequest.getImageName());
 
-            //인스턴스 저장 by persistence
             InstanceEntity instanceEntity = instancePersistencePort.save(instanceMapper.toEntity(instance));
             userEntity.addInstanceEntity(instanceEntity);
             userPersistencePort.save(userEntity);
 
-            //사용자 사용량 업데이트
             userUsage.addUsage(flavor.getVCpu(), flavor.getRam(), flavor.getDisk(), 1);
             userUsagePersistencePort.save(userUsageMapper.toEntity(userUsage));
+
+            instance.setId(instanceEntity.getId());
+            instance.setCreatorName(instanceEntity.getUserEntity().getUsername());
             return instance;
         }
         return null;

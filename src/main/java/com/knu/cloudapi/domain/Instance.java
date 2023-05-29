@@ -9,6 +9,8 @@ import lombok.Setter;
 public class Instance {
     private Long id;
 
+    private String creatorName;
+
     //==instanceRestTemplate Data==//
     private String instanceId;
 

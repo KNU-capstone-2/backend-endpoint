@@ -39,9 +39,6 @@ public class InstanceController {
         return ResponseEntity.ok().body(new ApiResponse<ArrayList<InstanceResponse>>(ApiStatus.OK, "OK", instanceResponses));
     }
 
-    /**
-     * TODO:인스턴스 생성 에러 처리
-     */
     @PostMapping("/instance")
     public ResponseEntity<ApiResponse<InstanceResponse>> createInstance(
             @RequestBody InstanceRequest instanceRequest, @AuthenticationPrincipal PrincipalDetails principalDetails
@@ -50,9 +47,6 @@ public class InstanceController {
         return ResponseEntity.ok().body(new ApiResponse<InstanceResponse>(ApiStatus.OK, "OK", instanceResponse));
     }
 
-    /**
-     * TODO: 인스턴스 삭제 에러 처리
-     */
     @DeleteMapping(path = "instance/{id}")
     public ResponseEntity<ApiResponse<String>> deleteInstance(@PathVariable("id") Long id, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         boolean result = instanceUseCase.deleteInstance(id, principalDetails.getUser());
