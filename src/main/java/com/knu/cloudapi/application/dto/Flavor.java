@@ -6,7 +6,7 @@ import lombok.Getter;
 public class Flavor {
     private Long id;
     private String name;
-    private int vCpu;
+    private int cpu;
     private int ram;
     private int disk;
     private int rootDisk;

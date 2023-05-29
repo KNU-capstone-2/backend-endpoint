@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -34,7 +35,8 @@ public class InstanceService implements InstanceUseCase {
         InstanceEntity instanceEntity = instancePersistencePort.getInstanceEntityById(id);
         Instance instance = instanceRestTemplatePort.getInstance(instanceMapper.fromEntity(instanceEntity).getInstanceName());
         instance.setId(instanceEntity.getId());
-        instance.setCreatorName(userPersistencePort.findById(instanceEntity.getId()).map(UserEntity::getUsername).orElse(null));
+        instance.setImageName(instanceEntity.getImageName());
+        instance.setCreatorName(instanceEntity.getUserEntity().getUsername());
         return instance;
     }
 
@@ -43,8 +45,10 @@ public class InstanceService implements InstanceUseCase {
         ArrayList<Instance> instances = instanceRestTemplatePort.getAllInstance();
         for (Instance instance : instances) {
             try{
-                instance.setId(instancePersistencePort.getInstanceEntityByName(instance.getInstanceName()).getId());
-                instance.setCreatorName(userPersistencePort.findById(instance.getId()).map(UserEntity::getUsername).orElse(null));
+                InstanceEntity instanceEntity = instancePersistencePort.getInstanceEntityByName(instance.getInstanceName());
+                instance.setId(instanceEntity.getId());
+                instance.setImageName(instanceEntity.getImageName());
+                instance.setCreatorName(instanceEntity.getUserEntity().getUsername());
             }catch(NullPointerException e) {
                 System.out.println(e.getMessage());
             }
@@ -57,7 +61,6 @@ public class InstanceService implements InstanceUseCase {
         UserEntity userEntity = userPersistencePort.findById(user.getId()).orElse(null);
         UserUsage userUsage = userUsageMapper.fromEntity(Objects.requireNonNull(userEntity).getUserUsageEntity());
         UserRole userRole = userRoleMapper.fromEntity(Objects.requireNonNull(userEntity).getUserRoleEntity());
-
         Flavor flavor = flavorRestTemplatePort.getFlavor(instanceRequest.getFlavorName());
         ProjectUsage projectUsage = projectUsageRestTemplatePort.getProjectUsage();
 
@@ -79,7 +82,7 @@ public class InstanceService implements InstanceUseCase {
             userEntity.addInstanceEntity(instanceEntity);
             userPersistencePort.save(userEntity);
 
-            userUsage.addUsage(flavor.getVCpu(), flavor.getRam(), flavor.getDisk(), 1);
+            userUsage.addUsage(flavor.getCpu(), flavor.getRam(), flavor.getDisk(), 1);
             userUsagePersistencePort.save(userUsageMapper.toEntity(userUsage));
 
             instance.setId(instanceEntity.getId());
@@ -108,7 +111,7 @@ public class InstanceService implements InstanceUseCase {
             //사용자 사용량 업데이트
             Flavor flavor = flavorRestTemplatePort.getFlavor(instanceEntity.getFlavorName());
             UserUsage userUsage = userUsageMapper.fromEntity(userUsagePersistencePort.getUserUsageById(user.getId()));
-            userUsage.subUsage(flavor.getVCpu(), flavor.getRam(), flavor.getDisk(), 1);
+            userUsage.subUsage(flavor.getCpu(), flavor.getRam(), flavor.getDisk(), 1);
             userUsagePersistencePort.save(userUsageMapper.toEntity(userUsage));
             return true;
         }

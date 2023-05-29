@@ -44,7 +44,7 @@ public class UserUsage {
     }
 
     public boolean cmpUsage(int vCpu, int ram, int hdd, Flavor flavor){
-       return this.vCpu + flavor.getVCpu() <= vCpu
+       return this.vCpu + flavor.getCpu() <= vCpu
                && this.ram + flavor.getRam() <= ram
                && this.hdd + flavor.getDisk() <= hdd;
     }
