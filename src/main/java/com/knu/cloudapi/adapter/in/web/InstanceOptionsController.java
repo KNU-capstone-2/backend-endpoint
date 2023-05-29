@@ -73,8 +73,8 @@ public class InstanceOptionsController {
 
 
     @GetMapping( "project")
-    public ResponseEntity<GetProjectResponse> getOpenStackProject() {
-        return ResponseEntity.ok().body(instanceOptionsUsecase.getOpenStackProject());
+    public ResponseEntity<ApiResponse<GetProjectResponse>> getOpenStackProject() {
+        return ResponseEntity.ok().body(new ApiResponse<>(1000, "OK", instanceOptionsUsecase.getOpenStackProject()));
     }
 
     @DeleteMapping("keypair/{id}")

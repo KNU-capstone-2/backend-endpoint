@@ -86,7 +86,7 @@ public class OpenStackAdapter implements OpenStackPort {
     @Override
     public List<GetOpenStackKeypairResponse> getKeypairList() {
         return new RestTemplate().exchange(
-            openStackURL+"/kepairs",
+            openStackURL+"/keypairs",
             HttpMethod.GET,
             null,
             new ParameterizedTypeReference<List<GetOpenStackKeypairResponse>>() {}
