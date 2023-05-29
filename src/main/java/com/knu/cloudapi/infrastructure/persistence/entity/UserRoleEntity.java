@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @NoArgsConstructor
 @Table(name="user_role")
@@ -28,8 +31,8 @@ public class UserRoleEntity {
     @Column(name = "max_hdd")
     private int maxHdd;
 
-    @OneToOne(mappedBy = "userRoleEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private UserEntity userEntity;
+    @OneToMany(mappedBy = "userRoleEntity")
+    private List<UserEntity> userEntityList = new ArrayList<UserEntity>();
 
 
     public UserRoleEntity(Role role, int maxVCpu, int maxRam, int maxHdd) {
@@ -37,5 +40,10 @@ public class UserRoleEntity {
         this.maxVCpu = maxVCpu;
         this.maxRam = maxRam;
         this.maxHdd = maxHdd;
+    }
+
+    public void addUserEntity(UserEntity userEntity) {
+        this.userEntityList.add(userEntity);
+        userEntity.setUserRoleEntity(this);
     }
 }

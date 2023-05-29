@@ -1,4 +1,4 @@
-package com.knu.cloudapi.adapter.out.resttemplate;
+package com.knu.cloudapi.adapter.out.restTemplate;
 
 import com.knu.cloudapi.application.port.out.ProjectUsageRestTemplatePort;
 import com.knu.cloudapi.domain.ProjectUsage;

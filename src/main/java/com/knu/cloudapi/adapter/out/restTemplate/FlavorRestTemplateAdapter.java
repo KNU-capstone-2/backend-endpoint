@@ -1,4 +1,4 @@
-package com.knu.cloudapi.adapter.out.resttemplate;
+package com.knu.cloudapi.adapter.out.restTemplate;
 
 import com.knu.cloudapi.application.dto.Flavor;
 import com.knu.cloudapi.application.port.out.FlavorRestTemplatePort;
