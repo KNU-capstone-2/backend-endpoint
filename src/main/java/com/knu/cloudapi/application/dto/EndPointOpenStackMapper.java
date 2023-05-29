@@ -3,6 +3,7 @@ package com.knu.cloudapi.application.dto;
 import com.knu.cloudapi.application.dto.openstack.response.*;
 import com.knu.cloudapi.application.dto.request.PostKeypairRequest;
 import com.knu.cloudapi.application.dto.response.*;
+import com.knu.cloudapi.application.port.in.GetProjectResponse;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
