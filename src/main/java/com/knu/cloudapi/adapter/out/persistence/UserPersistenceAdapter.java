@@ -31,12 +31,18 @@ public class UserPersistenceAdapter implements UserPersistencePort {
   }
 
   @Override
+  public User findByEmail(String email) {
+    Optional<UserEntity> optionalUserEntity = userRepository.findByEmail(email);
+    return optionalUserEntity.map(userMapper::fromEntity).orElse(null);
+  }
+
+  @Override
   public void save(User user) {
-    UserEntity userEntity = userMapper.toEntity(user);
-    UserRoleEntity userRoleEntity = userRolePersistencePort.getUserRoleByRole(user.getRole());
-    userRoleEntity.addUserEntity(userEntity);
-    userEntity.setUserUsageEntity(userUsagePersistencePort.save(new UserUsageEntity(0, 0, 0, 0)));
-    userRepository.save(userEntity);
+      UserEntity userEntity = userMapper.toEntity(user);
+      UserRoleEntity userRoleEntity = userRolePersistencePort.getUserRoleByRole(user.getRole());
+      userRoleEntity.addUserEntity(userEntity);
+      userEntity.setUserUsageEntity(userUsagePersistencePort.save(new UserUsageEntity(0, 0, 0, 0)));
+      userRepository.save(userEntity);
   }
 
   @Override

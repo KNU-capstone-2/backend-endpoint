@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface UserPersistencePort {
   User findByUsername(String username);
+  User findByEmail(String email);
   void save(User user);
   void save(UserEntity userEntity);
   Optional<UserEntity> findById(Long id);
