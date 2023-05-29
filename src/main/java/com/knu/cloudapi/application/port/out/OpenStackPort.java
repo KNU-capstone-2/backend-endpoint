@@ -5,6 +5,7 @@ import com.knu.cloudapi.application.dto.openstack.response.GetOpenStackImageResp
 import com.knu.cloudapi.application.dto.openstack.response.GetOpenStackKeypairResponse;
 import com.knu.cloudapi.application.dto.openstack.response.GetOpenStackNetworkResponse;
 import com.knu.cloudapi.application.dto.openstack.response.GetOpenStackProjectResponse;
+import com.knu.cloudapi.application.dto.openstack.response.OpenStackInstanceControlResponse;
 import com.knu.cloudapi.application.dto.openstack.response.PostOpenStackKeypairResponse;
 import com.knu.cloudapi.domain.Instance;
 import java.util.List;
@@ -33,5 +34,9 @@ public interface OpenStackPort {
 
     String deleteKeypair(String id);
 
+    OpenStackInstanceControlResponse startInstance(String id);
 
+    OpenStackInstanceControlResponse rebootInstance(String id);
+
+    OpenStackInstanceControlResponse stopInstance(String id);
 }

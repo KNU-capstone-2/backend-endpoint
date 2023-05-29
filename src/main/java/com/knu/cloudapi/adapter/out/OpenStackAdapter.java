@@ -6,6 +6,7 @@ import com.knu.cloudapi.application.dto.openstack.response.GetOpenStackImageResp
 import com.knu.cloudapi.application.dto.openstack.response.GetOpenStackKeypairResponse;
 import com.knu.cloudapi.application.dto.openstack.response.GetOpenStackNetworkResponse;
 import com.knu.cloudapi.application.dto.openstack.response.GetOpenStackProjectResponse;
+import com.knu.cloudapi.application.dto.openstack.response.OpenStackInstanceControlResponse;
 import com.knu.cloudapi.application.dto.openstack.response.PostOpenStackKeypairResponse;
 import com.knu.cloudapi.application.port.out.OpenStackPort;
 import java.util.List;
@@ -109,6 +110,33 @@ public class OpenStackAdapter implements OpenStackPort {
             null,
             String.class
         ).getBody();
+    }
+
+    @Override
+    public OpenStackInstanceControlResponse startInstance(String id) {
+        return new RestTemplate()
+            .postForObject(
+                openStackURL+"/instance/start/"+id,
+                null,
+                OpenStackInstanceControlResponse.class);
+    }
+
+    @Override
+    public OpenStackInstanceControlResponse rebootInstance(String id) {
+        return new RestTemplate()
+            .postForObject(
+                openStackURL+"/instance/reboot/"+id,
+                null,
+                OpenStackInstanceControlResponse.class);
+    }
+
+    @Override
+    public OpenStackInstanceControlResponse stopInstance(String id) {
+        return new RestTemplate()
+            .postForObject(
+                openStackURL+"/instance/stop/"+id,
+                null,
+                OpenStackInstanceControlResponse.class);
     }
 
 }

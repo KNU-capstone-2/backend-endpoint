@@ -3,6 +3,7 @@ package com.knu.cloudapi.adapter.in.web;
 import com.knu.cloudapi.application.dto.request.InstanceRequest;
 import com.knu.cloudapi.application.dto.response.ApiResponse;
 import com.knu.cloudapi.application.dto.response.ApiStatus;
+import com.knu.cloudapi.application.dto.response.InstanceControlResponse;
 import com.knu.cloudapi.application.dto.response.InstanceResponse;
 import com.knu.cloudapi.application.port.in.InstanceUseCase;
 import com.knu.cloudapi.domain.Instance;
@@ -52,4 +53,20 @@ public class InstanceController {
         boolean result = instanceUseCase.deleteInstance(id, principalDetails.getUser());
         return ResponseEntity.ok().body(new ApiResponse<String>(ApiStatus.OK, "OK", result ? "complete delete instance" : "fail delete instance"));
     }
+
+    @PostMapping("/instance/start/{id}")
+    public ResponseEntity<ApiResponse<InstanceControlResponse>> startInstance(@PathVariable("id") String id) {
+        return ResponseEntity.ok().body(new ApiResponse<>(ApiStatus.OK, "OK", instanceUseCase.startInstance(id)));
+    }
+
+    @PostMapping("/instance/reboot/{id}")
+    public ResponseEntity<ApiResponse<InstanceControlResponse>> rebootInstance(@PathVariable("id") String id) {
+        return ResponseEntity.ok().body(new ApiResponse<>(ApiStatus.OK, "OK", instanceUseCase.rebootInstance(id)));
+    }
+
+    @PostMapping("/instance/stop/{id}")
+    public ResponseEntity<ApiResponse<InstanceControlResponse>> stopInstance(@PathVariable("id") String id) {
+        return ResponseEntity.ok().body(new ApiResponse<>(ApiStatus.OK, "OK", instanceUseCase.stopInstance(id)));
+    }
+
 }
