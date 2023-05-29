@@ -99,4 +99,9 @@ public class InstanceOptionsService implements InstanceOptionsUsecase {
 
         return mapper.transPostKeypairRes(openStackPort.postKeypair(request.getKeypairName(),  request.getKeypairType()));
     }
+
+    @Override
+    public String deleteKeypair(String id) {
+        return openStackPort.deleteKeypair(id);
+    }
 }

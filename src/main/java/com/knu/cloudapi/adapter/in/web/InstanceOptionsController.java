@@ -10,6 +10,7 @@ import com.knu.cloudapi.application.port.in.InstanceOptionsUsecase;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -66,4 +67,10 @@ public class InstanceOptionsController {
     public ResponseEntity<PostKeypairResponse> postKeypair(@RequestBody PostKeypairRequest request) {
         return ResponseEntity.ok().body(instanceOptionsUsecase.postKeypair(request));
     }
+
+    @DeleteMapping("keypair/{id}")
+    public ResponseEntity<String> deleteKeypairById(@PathVariable("id") String id) {
+        return ResponseEntity.ok().body(instanceOptionsUsecase.deleteKeypair(id));
+    }
+
 }

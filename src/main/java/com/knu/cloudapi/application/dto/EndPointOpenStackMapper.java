@@ -25,6 +25,4 @@ public interface EndPointOpenStackMapper {
     GetImageResponse transGetImageRes(GetOpenStackImageResponse response);
 
     PostKeypairResponse transPostKeypairRes(PostOpenStackKeypairResponse response);
-
-    PostKeypairRequest transPostKeypairReq(PostKeypairRequest request);
 }
