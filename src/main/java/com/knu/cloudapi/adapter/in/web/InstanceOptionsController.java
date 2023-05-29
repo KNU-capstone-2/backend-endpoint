@@ -1,20 +1,13 @@
 package com.knu.cloudapi.adapter.in.web;
 
 import com.knu.cloudapi.application.dto.request.PostKeypairRequest;
-import com.knu.cloudapi.application.dto.response.GetFlavorResponse;
-import com.knu.cloudapi.application.dto.response.GetImageResponse;
-import com.knu.cloudapi.application.dto.response.GetKeypairResponse;
-import com.knu.cloudapi.application.dto.response.GetNetworkResponse;
-import com.knu.cloudapi.application.dto.response.PostKeypairResponse;
+import com.knu.cloudapi.application.dto.response.*;
 import com.knu.cloudapi.application.port.in.InstanceOptionsUsecase;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -65,5 +58,10 @@ public class InstanceOptionsController {
     @PostMapping("keypair")
     public ResponseEntity<PostKeypairResponse> postKeypair(@RequestBody PostKeypairRequest request) {
         return ResponseEntity.ok().body(instanceOptionsUsecase.postKeypair(request));
+    }
+
+    @GetMapping( "project")
+    public ResponseEntity<GetProjectResponse> getOpenStackProject() {
+        return ResponseEntity.ok().body(instanceOptionsUsecase.getOpenStackProject());
     }
 }

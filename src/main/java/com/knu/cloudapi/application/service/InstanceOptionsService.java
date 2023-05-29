@@ -1,16 +1,9 @@
 package com.knu.cloudapi.application.service;
 
 import com.knu.cloudapi.application.dto.EndPointOpenStackMapper;
-import com.knu.cloudapi.application.dto.openstack.response.GetOpenStackFlavorResponse;
-import com.knu.cloudapi.application.dto.openstack.response.GetOpenStackImageResponse;
-import com.knu.cloudapi.application.dto.openstack.response.GetOpenStackKeypairResponse;
-import com.knu.cloudapi.application.dto.openstack.response.GetOpenStackNetworkResponse;
+import com.knu.cloudapi.application.dto.openstack.response.*;
 import com.knu.cloudapi.application.dto.request.PostKeypairRequest;
-import com.knu.cloudapi.application.dto.response.GetFlavorResponse;
-import com.knu.cloudapi.application.dto.response.GetImageResponse;
-import com.knu.cloudapi.application.dto.response.GetKeypairResponse;
-import com.knu.cloudapi.application.dto.response.GetNetworkResponse;
-import com.knu.cloudapi.application.dto.response.PostKeypairResponse;
+import com.knu.cloudapi.application.dto.response.*;
 import com.knu.cloudapi.application.port.in.InstanceOptionsUsecase;
 import com.knu.cloudapi.application.port.out.OpenStackPort;
 import java.util.ArrayList;
@@ -98,5 +91,10 @@ public class InstanceOptionsService implements InstanceOptionsUsecase {
     public PostKeypairResponse postKeypair(PostKeypairRequest request) {
 
         return mapper.transPostKeypairRes(openStackPort.postKeypair(request.getKeypairName(),  request.getKeypairType()));
+    }
+
+    @Override
+    public GetProjectResponse getOpenStackProject() {
+        return mapper.transGetProjectRes(openStackPort.getProject());
     }
 }

@@ -1,11 +1,9 @@
 package com.knu.cloudapi.application.port.in;
 
+import com.knu.cloudapi.application.dto.openstack.response.GetOpenStackProjectResponse;
 import com.knu.cloudapi.application.dto.request.PostKeypairRequest;
-import com.knu.cloudapi.application.dto.response.GetFlavorResponse;
-import com.knu.cloudapi.application.dto.response.GetImageResponse;
-import com.knu.cloudapi.application.dto.response.GetKeypairResponse;
-import com.knu.cloudapi.application.dto.response.GetNetworkResponse;
-import com.knu.cloudapi.application.dto.response.PostKeypairResponse;
+import com.knu.cloudapi.application.dto.response.*;
+
 import java.util.List;
 
 public interface InstanceOptionsUsecase {
@@ -26,4 +24,6 @@ public interface InstanceOptionsUsecase {
     GetNetworkResponse getNetworkById(String id);
 
     PostKeypairResponse postKeypair(PostKeypairRequest request);
+
+    GetProjectResponse getOpenStackProject();
 }
