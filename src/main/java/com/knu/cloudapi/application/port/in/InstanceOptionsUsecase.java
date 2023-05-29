@@ -26,4 +26,6 @@ public interface InstanceOptionsUsecase {
     GetNetworkResponse getNetworkById(String id);
 
     PostKeypairResponse postKeypair(PostKeypairRequest request);
+
+    String deleteKeypair(String id);
 }
