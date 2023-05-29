@@ -24,9 +24,9 @@ public class UserService implements UserUseCase {
     @Override
     public ApiResponse<Object> join(JoinRequest request) {
         if (userPersistencePort.findByUsername(request.getUsername()) != null) {
-            return new ApiResponse<>(ApiStatus.OK, "Username is already exist", null);
+            return new ApiResponse<>(ApiStatus.INVALID_USERNAME, "Username is already exist", null);
         }else if(userPersistencePort.findByEmail(request.getEmail()) != null){
-            return new ApiResponse<>(ApiStatus.OK, "Email is already exist", null);
+            return new ApiResponse<>(ApiStatus.INVALID_EMAIL, "Email is already exist", null);
         }else{
             userPersistencePort.save(new User(request.getUsername(), request.getEmail(), bCryptPasswordEncoder.encode(request.getPassword()), Role.USER));
             return new ApiResponse<>(ApiStatus.OK, "Success SignUp", null);
