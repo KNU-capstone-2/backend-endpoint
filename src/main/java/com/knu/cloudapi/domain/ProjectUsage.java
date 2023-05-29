@@ -17,7 +17,7 @@ public class ProjectUsage {
 
     public boolean cmpProjectUsage(int instanceCount, int vCpuCount, int ramCount, int volumeCount, Flavor flavor) {
         return this.instanceCount + 1 <= instanceCount
-                && this.vCpuCount + flavor.getVCpu() <= vCpuCount
+                && this.vCpuCount + flavor.getCpu() <= vCpuCount
                 && this.ramCount + flavor.getRam() <= ramCount
                 && this.volumeCount + flavor.getDisk() <= volumeCount;
     }

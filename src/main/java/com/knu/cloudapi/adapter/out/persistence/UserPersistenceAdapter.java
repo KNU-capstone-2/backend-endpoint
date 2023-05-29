@@ -12,7 +12,7 @@ import com.knu.cloudapi.infrastructure.persistence.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -26,17 +26,23 @@ public class UserPersistenceAdapter implements UserPersistencePort {
 
   @Override
   public User findByUsername(String username) {
-    return userMapper.fromEntity(userRepository.findByUsername(username)
-        .orElseThrow(NullPointerException::new));
+    Optional<UserEntity> optionalUserEntity = userRepository.findByUsername(username);
+    return optionalUserEntity.map(userMapper::fromEntity).orElse(null);
+  }
+
+  @Override
+  public User findByEmail(String email) {
+    Optional<UserEntity> optionalUserEntity = userRepository.findByEmail(email);
+    return optionalUserEntity.map(userMapper::fromEntity).orElse(null);
   }
 
   @Override
   public void save(User user) {
-    UserEntity userEntity = userMapper.toEntity(user);
-    UserRoleEntity userRoleEntity = userRolePersistencePort.getUserRoleByRole(user.getRole());
-    userRoleEntity.addUserEntity(userEntity);
-    userEntity.setUserUsageEntity(userUsagePersistencePort.save(new UserUsageEntity(0, 0, 0, 0)));
-    userRepository.save(userEntity);
+      UserEntity userEntity = userMapper.toEntity(user);
+      UserRoleEntity userRoleEntity = userRolePersistencePort.getUserRoleByRole(user.getRole());
+      userRoleEntity.addUserEntity(userEntity);
+      userEntity.setUserUsageEntity(userUsagePersistencePort.save(new UserUsageEntity(0, 0, 0, 0)));
+      userRepository.save(userEntity);
   }
 
   @Override
@@ -45,7 +51,11 @@ public class UserPersistenceAdapter implements UserPersistencePort {
   }
 
   @Override
-  public UserEntity findById(Long id) {
-    return userRepository.findById(id).orElseThrow(NullPointerException::new);
+  public Optional<UserEntity> findById(Long id) {
+    try {
+      return userRepository.findById(id);
+    } catch (Exception e) {
+      return Optional.empty();
+    }
   }
 }

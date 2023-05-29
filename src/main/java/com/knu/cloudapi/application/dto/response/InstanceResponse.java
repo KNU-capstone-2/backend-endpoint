@@ -9,6 +9,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class InstanceResponse{
+
+    private Long id;
+
+    private String creatorName;
+
     private String instanceId;
 
     private String instanceName;
