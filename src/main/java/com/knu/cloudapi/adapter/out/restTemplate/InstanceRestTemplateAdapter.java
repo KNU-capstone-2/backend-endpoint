@@ -39,7 +39,6 @@ public class InstanceRestTemplateAdapter implements InstanceRestTemplatePort {
                 new ParameterizedTypeReference<ArrayList<InstanceResponse>>() {}
         ).getBody();
 
-
         ArrayList<Instance> instances = new ArrayList<>();
         if (instanceResponses != null) {
             for (InstanceResponse instanceResponse : instanceResponses) {
