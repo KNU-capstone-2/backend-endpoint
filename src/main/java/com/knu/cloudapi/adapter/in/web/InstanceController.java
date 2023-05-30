@@ -51,7 +51,11 @@ public class InstanceController {
     @DeleteMapping(path = "instance/{id}")
     public ResponseEntity<ApiResponse<String>> deleteInstance(@PathVariable("id") Long id, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         boolean result = instanceUseCase.deleteInstance(id, principalDetails.getUser());
-        return ResponseEntity.ok().body(new ApiResponse<String>(ApiStatus.OK, "OK", result ? "complete delete instance" : "fail delete instance"));
+        if (result){
+            return ResponseEntity.ok().body(new ApiResponse<String>(ApiStatus.OK, "OK",  "complete delete instance" ));
+        }else{
+            return ResponseEntity.ok().body(new ApiResponse<String>(ApiStatus.FAIL, "FAIL",  "fail delete instance"));
+        }
     }
 
     @PostMapping("/instance/start/{id}")
@@ -61,7 +65,7 @@ public class InstanceController {
 
     @PostMapping("/instance/reboot/{id}")
     public ResponseEntity<ApiResponse<InstanceControlResponse>> rebootInstance(@PathVariable("id") String id) {
-        return ResponseEntity.ok().body(new ApiResponse<>(ApiStatus.OK, "OK", instanceUseCase.rebootInstance(id)));
+        return ResponseEntity.ok().body(new ApiResponse<>(ApiStatus. OK, "OK", instanceUseCase.rebootInstance(id)));
     }
 
     @PostMapping("/instance/stop/{id}")
